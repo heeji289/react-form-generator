@@ -1,4 +1,4 @@
 import App from './App';
-import { render } from './dom';
+import React from './mini-react/react';
 
-render(App(), document.querySelector('#app'));
+React.render(App(), document.querySelector('#app'));

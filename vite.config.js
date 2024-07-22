@@ -10,6 +10,6 @@ export default defineConfig({
   esbuild: {
     jsxFactory: 'createElement',
     jsxFragment: 'Fragment',
-    jsxInject: `import { createElement, Fragment } from '@/src/jsx-transpiler'`,
+    jsxInject: `import { createElement, Fragment } from '@/src/mini-react/jsx-transpiler'`,
   },
 });
