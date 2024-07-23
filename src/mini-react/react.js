@@ -39,7 +39,7 @@ const React = () => {
     const setState = (newValue) => {
       if (componentStates[index] !== newValue) {
         componentStates[index] = newValue;
-        _render();
+        setTimeout(_render, 0);
       }
     };
 
