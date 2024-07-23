@@ -95,7 +95,7 @@ const React = () => {
       container.removeChild(container.childNodes[index]);
     } else if (newVnode.type === 'TEXT_ELEMENT') {
       // 텍스트 노드 변경
-      if (prevNode !== newVnode) {
+      if (prevNode.props.nodeValue !== newVnode.props.nodeValue) {
         container.childNodes[index].textContent = newVnode.props.nodeValue;
       }
     } else if (checkNodeChanged(prevNode, newVnode)) {
