@@ -11,8 +11,8 @@
 - **목표**: 사용자가 jsx 문법으로 작성한 컴포넌트를 JavaScript 코드로 변환한다.
 - **상세 내용**:
 
-  1. jsx에서 태그, 속성, 자식 요소를 파싱한다.
-  2. 파싱된 결과를 `createElement` 함수 호출 형태로 변환한다.
+  1. esbuild 옵션을 활용해 jsx문법을 `createElement`로 변환
+  2. `jsxInject` 옵션으로 자동으로 `createElement`를 import
 
   **before**
 
@@ -52,7 +52,7 @@
     - 실제 DOM 노드 생성: `createDOM(Virtual DOM 객체)` 함수 사용
     - 지정된 컨테이너에 추가: `document.getElementById('root').appendChild(createDOM(vNode))`
   - **상태 변경 시 업데이트**: 기존 DOM과 새로운 Virtual DOM을 비교하여 변경된 부분만 실제 DOM에 반영한다.
-    - `updateElement` 함수로 이전 Virtual DOM과 새로운 Virtual DOM을 비교하여 변경된 부분만 업데이트 (diff 함수를 통해)
+    - `updateDOM` 함수로 이전 Virtual DOM과 새로운 Virtual DOM을 비교하여 변경된 부분만 업데이트
 
 ### 3. useState 훅 구현
 
@@ -72,25 +72,25 @@
 
 ### 1. jsx 트랜스파일링
 
-- [ ] jsx 문자열을 받아 태그, 속성, 자식 요소를 파싱하는 함수 작성
-- [ ] 파싱한 결과를 `createElement`를 호출하는 형태로 변환
+- [x] jsx 문자열을 받아 태그, 속성, 자식 요소를 파싱하는 함수 작성
+- [x] 파싱한 결과를 `createElement`를 호출하는 형태로 변환
 
 ### 2. Virtual DOM 구현
 
-- [ ] `createElement` 함수 구현
-  - [ ] 태그, 속성, 자식 요소를 받아 VDOM 노드를 생성하는 함수 작성
-- [ ] `createDOM` 함수 구현
-  - [ ] VDOM을 실제 DOM으로 변환하는 함수 작성
-- [ ] `render` 함수 구현
-- [ ] `updateElement` 함수 구현
-  - [ ] 기존 DOM과 VDOM을 비교하는 로직 작성
-  - [ ] 변경된 부분만 업데이트하는 로직 작성
+- [x] `createElement` 함수 구현
+  - [x] 태그, 속성, 자식 요소를 받아 VDOM 노드를 생성하는 함수 작성
+- [x] `createDOM` 함수 구현
+  - [x] VDOM을 실제 DOM으로 변환하는 함수 작성
+- [x] `render` 함수 구현
+- [x] `updateDOM` 함수 구현
+  - [x] 기존 DOM과 VDOM을 비교하는 로직 작성
+  - [x] 변경된 부분만 업데이트하는 로직 작성
 
 ### 3. useState 훅 구현
 
-- [ ] 초기 상태 값을 받아 현재 상태와 상태 업데이트 함수를 반환하는 함수 작성
-- [ ] `setState`로직 작성
-- [ ] 상태 변경시 리렌더링되도록
+- [x] 초기 상태 값을 받아 현재 상태와 상태 업데이트 함수를 반환하는 함수 작성
+- [x] `setState`로직 작성
+- [x] 상태 변경시 리렌더링되도록
 
 # 만든 React로 Google Form 제작
 
