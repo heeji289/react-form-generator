@@ -79,30 +79,30 @@ const React = () => {
   };
 
   const updateDOM = (prevNode, newVnode, container, index = 0) => {
+    const currentNode = container.childNodes[index];
+
     if (prevNode == null) {
       // 초기 렌더링
       container.appendChild(createDOM(newVnode));
     } else if (newVnode == null) {
       // 해당 노드 제거가 필요한 경우
-      container.removeChild(container.childNodes[index]);
+      if (currentNode) {
+        container.removeChild(currentNode);
+      }
     } else if (newVnode.type === 'TEXT_ELEMENT') {
       // 텍스트 노드 변경
       if (prevNode.props.nodeValue !== newVnode.props.nodeValue) {
-        container.childNodes[index].textContent = newVnode.props.nodeValue;
+        currentNode.textContent = newVnode.props.nodeValue;
       }
     } else if (checkNodeChanged(prevNode, newVnode)) {
       // 노드가 완전히 바뀜 (<div> -> <span> 같이)
       // 완전 새로운 노드를 만들어서 교체
       const newDOM = createDOM(newVnode);
-      container.replaceChild(newDOM, container.childNodes[index]);
+      container.replaceChild(newDOM, currentNode);
     } else {
       // 속성이나 자식 요소가 변경된 경우
       // 속성은 업데이트하고
-      updateAttributes(
-        container.childNodes[index],
-        prevNode.props,
-        newVnode.props
-      );
+      updateAttributes(currentNode, prevNode.props, newVnode.props);
 
       // 자식은 재귀적으로 업데이트
       const prevChildren = prevNode.children;
@@ -111,13 +111,15 @@ const React = () => {
       const maxLength = Math.max(prevChildren.length, newChildren.length);
 
       for (let i = 0; i < maxLength; i++) {
-        updateDOM(
-          prevChildren[i],
-          newChildren[i],
-          container.childNodes[index],
-          i
-        );
+        updateDOM(prevChildren[i], newChildren[i], currentNode, i);
       }
+    }
+
+    // 남은 이전 자식 노드들 제거
+    while (
+      (currentNode?.childNodes?.length ?? 0) > (newVnode?.children?.length ?? 0)
+    ) {
+      currentNode.removeChild(currentNode.lastChild);
     }
   };
 
