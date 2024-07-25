@@ -24,28 +24,25 @@ const React = () => {
   };
 
   const useState = (initialValue) => {
-    const component = _currentComponent;
-    const index = _stateIndex;
-
-    if (!_states.has(component)) {
-      _states.set(component, []);
+    if (!_states.has(_currentComponent)) {
+      _states.set(_currentComponent, []);
     }
 
-    const componentStates = _states.get(component);
-    if (componentStates[index] === undefined) {
-      componentStates[index] = initialValue;
+    const componentStates = _states.get(_currentComponent);
+    if (componentStates[_stateIndex] === undefined) {
+      componentStates[_stateIndex] = initialValue;
     }
 
     const setState = (newValue) => {
-      if (componentStates[index] !== newValue) {
-        componentStates[index] = newValue;
+      if (componentStates[_stateIndex] !== newValue) {
+        componentStates[_stateIndex] = newValue;
         setTimeout(_render, 0);
       }
     };
 
     _stateIndex++;
 
-    return [componentStates[index], setState];
+    return [componentStates[_stateIndex], setState];
   };
 
   /**
@@ -179,4 +176,4 @@ const React = () => {
   };
 };
 
-export default React();
+export const { render, useState } = React();
