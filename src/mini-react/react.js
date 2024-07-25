@@ -68,15 +68,7 @@ const React = () => {
     const dom = document.createElement(vnode.type);
 
     // props를 dom에 반영
-    for (const [key, value] of Object.entries(vnode.props ?? {})) {
-      if (key.startsWith('on')) {
-        dom.addEventListener(key.substring(2).toLowerCase(), value);
-      } else if (key === 'className') {
-        dom.setAttribute('class', value);
-      } else {
-        dom.setAttribute(key, value);
-      }
-    }
+    setAttributes(dom, vnode.props ?? {});
 
     // children을 dom에 붙임
     vnode.children?.forEach((child) => {
@@ -87,10 +79,10 @@ const React = () => {
   };
 
   const updateDOM = (prevNode, newVnode, container, index = 0) => {
-    if (prevNode === null) {
+    if (prevNode == null) {
       // 초기 렌더링
       container.appendChild(createDOM(newVnode));
-    } else if (newVnode === null) {
+    } else if (newVnode == null) {
       // 해당 노드 제거가 필요한 경우
       container.removeChild(container.childNodes[index]);
     } else if (newVnode.type === 'TEXT_ELEMENT') {
@@ -148,13 +140,31 @@ const React = () => {
   };
 
   const updateAttributes = (element, prevProps, newProps) => {
-    const allProps = { ...prevProps, ...newProps };
+    // 이전 속성 없애고
+    for (const key in prevProps) {
+      if (key.startsWith('on')) {
+        const eventType = key.toLowerCase().substring(2);
+        element.removeEventListener(eventType, prevProps[key]);
+      } else {
+        element.removeAttribute(key);
+      }
+    }
 
-    for (const [key, value] of Object.entries(allProps)) {
+    setAttributes(element, newProps ?? {});
+  };
+
+  const setAttributes = (element, props) => {
+    for (const [key, value] of Object.entries(props)) {
       if (key.startsWith('on')) {
         element.addEventListener(key.substring(2).toLowerCase(), value);
       } else if (key === 'className') {
         element.setAttribute('class', value);
+      } else if (key === 'disabled' || key === 'checked') {
+        if (value === true || value === 'true') {
+          element.setAttribute(key, '');
+        } else {
+          element.removeAttribute(key);
+        }
       } else {
         element.setAttribute(key, value);
       }
