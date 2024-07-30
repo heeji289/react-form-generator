@@ -1,5 +1,3 @@
-import * as React from './mini-react/react';
-
 function Counter() {
   const [count, setCount] = React.useState(0);
 

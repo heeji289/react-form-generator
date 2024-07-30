@@ -1,3 +1,5 @@
+import React from 'react';
+
 export function Question({ question, answer = '', onChangeAnswer }) {
   switch (question.type) {
     case 'text':

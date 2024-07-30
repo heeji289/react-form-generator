@@ -1,13 +1,21 @@
 import App from './App';
 
 import { Form } from './form/Form';
-import Router from './router';
-import Temp from './Temp';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-const routes = {
-  '/': <App />,
-  '/temp': <Temp />,
-  '/form/:id': <Form />,
-};
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <App />,
+  },
+  {
+    path: '/form/:id',
+    element: <Form />,
+  },
+]);
 
-const router = new Router(routes);
+ReactDOM.createRoot(document.getElementById('app')).render(
+  <RouterProvider router={router} />
+);

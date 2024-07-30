@@ -1,4 +1,4 @@
-import React from '../mini-react/react';
+import React from 'react';
 import { Question } from './Question';
 
 // 폼 데이터 (서버에서 받아온 것으로 가정)

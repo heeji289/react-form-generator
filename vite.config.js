@@ -7,9 +7,9 @@ export default defineConfig({
       '@': path.resolve(__dirname, '.'),
     },
   },
-  esbuild: {
-    jsxFactory: 'createElement',
-    jsxFragment: 'Fragment',
-    jsxInject: `import { createElement, Fragment } from '@/src/mini-react/jsx-transpiler'`,
-  },
+  // esbuild: {
+  //   jsxFactory: 'createElement',
+  //   jsxFragment: 'Fragment',
+  //   jsxInject: `import { createElement, Fragment } from '@/src/mini-react/jsx-transpiler'`,
+  // },
 });
