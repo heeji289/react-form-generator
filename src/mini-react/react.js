@@ -24,6 +24,8 @@ const React = () => {
   };
 
   const useState = (initialValue) => {
+    const index = _stateIndex;
+
     if (!_states.has(_currentComponent)) {
       _states.set(_currentComponent, []);
     }
@@ -34,15 +36,15 @@ const React = () => {
     }
 
     const setState = (newValue) => {
-      if (componentStates[_stateIndex] !== newValue) {
-        componentStates[_stateIndex] = newValue;
+      if (componentStates[index] !== newValue) {
+        componentStates[index] = newValue;
         setTimeout(_render, 0);
       }
     };
 
-    _stateIndex++;
+    const currentValue = componentStates[_stateIndex++];
 
-    return [componentStates[_stateIndex], setState];
+    return [currentValue, setState];
   };
 
   /**
