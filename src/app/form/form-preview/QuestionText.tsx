@@ -1,5 +1,6 @@
 import React from 'react';
 import { Question } from '../form.type';
+import * as styles from './style.css';
 
 interface QuestionTextProps {
   question: Question;
@@ -15,13 +16,14 @@ export function QuestionText({
   renderLabel,
 }: QuestionTextProps) {
   return (
-    <div>
+    <div className={styles.questionContainer}>
       {renderLabel()}
       <input
         type='text'
         value={answer}
         onChange={(e) => onChangeAnswer(e.target.value)}
         required={question.required}
+        className={styles.textInput}
       />
     </div>
   );

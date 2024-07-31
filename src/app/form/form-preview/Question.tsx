@@ -4,6 +4,7 @@ import { QuestionText } from './QuestionText';
 import { QuestionRadio } from './QuestionRadio';
 import { QuestionCheckbox } from './QuestionCheckbox';
 import { QuestionTextarea } from './QuestionTextArea';
+import * as styles from './style.css';
 
 interface QuestionProps {
   question: QuestionType;
@@ -13,7 +14,7 @@ interface QuestionProps {
 
 export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
   const renderLabel = () => (
-    <label>
+    <label className={styles.questionTitle}>
       {question.title}
       {question.required && <span style={{ color: 'red' }}> *</span>}
     </label>

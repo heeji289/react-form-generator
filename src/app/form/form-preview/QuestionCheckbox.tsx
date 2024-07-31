@@ -1,5 +1,6 @@
 import React from 'react';
 import { Question } from '../form.type';
+import * as styles from './style.css';
 
 interface QuestionCheckboxProps {
   question: Question;
@@ -26,21 +27,23 @@ export function QuestionCheckbox({
   };
 
   return (
-    <div>
-      {renderLabel()}
-      {question.options?.map((option) => (
-        <div key={option}>
-          <input
-            type='checkbox'
-            id={`${question.id}-${option}`}
-            name={question.id}
-            value={option}
-            checked={answer.includes(option)}
-            onChange={handleChange}
-          />
-          <label htmlFor={`${question.id}-${option}`}>{option}</label>
-        </div>
-      ))}
+    <div className={styles.questionContainer}>
+      <div className={styles.radioContainer}>
+        {renderLabel()}
+        {question.options?.map((option) => (
+          <div key={option} className={styles.radioLabel}>
+            <input
+              type='checkbox'
+              id={`${question.id}-${option}`}
+              name={question.id}
+              value={option}
+              checked={answer.includes(option)}
+              onChange={handleChange}
+            />
+            <label htmlFor={`${question.id}-${option}`}>{option}</label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

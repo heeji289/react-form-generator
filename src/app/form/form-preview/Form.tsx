@@ -4,6 +4,7 @@ import { Question } from './Question';
 import { formData } from './form.data';
 import { useParams } from 'react-router-dom';
 import { loadForm, saveForm } from './utils';
+import * as styles from './style.css';
 
 export const Form = () => {
   const { id: formID } = useParams<{ id: string }>();
@@ -50,8 +51,8 @@ export const Form = () => {
   }, [formID]);
 
   return (
-    <div>
-      <h1>{formData.title}</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>{formData.title}</h1>
       <h2>{sectionData.title}</h2>
 
       {sectionData.questions.map((question) => (
@@ -63,12 +64,21 @@ export const Form = () => {
         />
       ))}
 
-      <button onClick={handleClickPreviousButton} disabled={sectionIndex === 0}>
-        이전
-      </button>
-      <button onClick={handleClickNextButton}>
-        {sectionIndex === formData.sections.length - 1 ? '제출' : '다음'}
-      </button>
+      <div className={styles.navigationContainer}>
+        <button
+          onClick={handleClickPreviousButton}
+          disabled={sectionIndex === 0}
+          className={styles.navigationButton}
+        >
+          이전
+        </button>
+        <button
+          onClick={handleClickNextButton}
+          className={styles.navigationButton}
+        >
+          {sectionIndex === formData.sections.length - 1 ? '제출' : '다음'}
+        </button>
+      </div>
     </div>
   );
 };

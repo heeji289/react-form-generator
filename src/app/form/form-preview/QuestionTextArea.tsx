@@ -1,5 +1,6 @@
 import React from 'react';
 import { Question } from '../form.type';
+import * as styles from './style.css';
 
 interface QuestionTextareaProps {
   question: Question;
@@ -15,12 +16,13 @@ export function QuestionTextarea({
   renderLabel,
 }: QuestionTextareaProps) {
   return (
-    <div>
+    <div className={styles.questionContainer}>
       {renderLabel()}
       <textarea
         value={answer}
         onChange={(e) => onChangeAnswer(e.target.value)}
         required={question.required}
+        className={styles.textarea}
       />
     </div>
   );

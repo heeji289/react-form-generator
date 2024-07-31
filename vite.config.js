@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite';
 import path from 'path';
+import { vanillaExtractPlugin } from '@vanilla-extract/vite-plugin';
 
 export default defineConfig({
   resolve: {
@@ -7,6 +8,7 @@ export default defineConfig({
       '@': path.resolve(__dirname, '.'),
     },
   },
+  plugins: [vanillaExtractPlugin()],
   // esbuild: {
   //   jsxFactory: 'createElement',
   //   jsxFragment: 'Fragment',
