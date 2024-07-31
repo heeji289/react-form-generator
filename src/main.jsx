@@ -4,6 +4,7 @@ import { Form } from './app/form/form-preview/Form';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import FormSubmitPage from './app/form/form-submit/FormSubmitPage';
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
   {
     path: '/form/:id',
     element: <Form />,
+  },
+  {
+    path: '/form/:id/submit',
+    element: <FormSubmitPage />,
   },
 ]);
 

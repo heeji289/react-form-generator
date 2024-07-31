@@ -25,3 +25,7 @@ export type Form = {
 export type Answers = {
   [questionID: string]: string | string[];
 };
+
+export type FormResult = Pick<Form, 'title' | 'id'> & {
+  answers: Answers;
+};

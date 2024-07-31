@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import { Answers } from '../form.type';
 import { Question } from './Question';
 import { formData } from './form.data';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { loadForm, saveForm } from './utils';
 import * as styles from './style.css';
 
 export const Form = () => {
   const { id: formID } = useParams<{ id: string }>();
+  const navigate = useNavigate();
 
   const [sectionIndex, setSectionIndex] = React.useState(0);
   const [answers, setAnswers] = React.useState<Answers>({});
@@ -24,7 +25,11 @@ export const Form = () => {
       if (!formID) return prev;
 
       const newAnswers = { ...prev, [questionID]: answer };
-      saveForm(formID, newAnswers);
+      saveForm(formID, {
+        id: formID,
+        title: formData.title,
+        answers: newAnswers,
+      });
 
       return newAnswers;
     });
@@ -52,7 +57,8 @@ export const Form = () => {
     } else {
       // TODO: 제출
       // 저장하고
-      // 페이지 이동
+      // 페이지 `이동
+      navigate(`/form/${formID}/submit`);
     }
   };
 
@@ -65,7 +71,8 @@ export const Form = () => {
   useEffect(() => {
     if (!formID) return;
 
-    setAnswers(loadForm(formID));
+    const result = loadForm(formID);
+    setAnswers(result.answers ?? []);
   }, [formID]);
 
   return (

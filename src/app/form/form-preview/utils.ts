@@ -1,12 +1,12 @@
-import { Answers } from '../form.type';
+import { FormResult } from '../form.type';
 
 const getStorageKey = (formID: string) => `form-${formID}`;
 
-export const saveForm = (formID: string, answers: Answers) => {
-  sessionStorage.setItem(getStorageKey(formID), JSON.stringify(answers));
+export const saveForm = (formID: string, result: FormResult) => {
+  sessionStorage.setItem(getStorageKey(formID), JSON.stringify(result));
 };
 
-export const loadForm = (formID: string): Answers => {
+export const loadForm = (formID: string): FormResult => {
   const saved = sessionStorage.getItem(getStorageKey(formID));
   return saved ? JSON.parse(saved) : {};
 };
