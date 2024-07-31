@@ -1,8 +1,9 @@
 import React from 'react';
 import { Question } from './Question';
+import { Form as FormType } from './form.type';
 
 // 폼 데이터 (서버에서 받아온 것으로 가정)
-const formData = {
+const formData: FormType = {
   id: 'form1',
   title: '제목 없는 설문지',
   sections: [
@@ -47,13 +48,20 @@ const formData = {
   ],
 };
 
+type Answers = {
+  [questionID: string]: string | string[];
+};
+
 export const Form = () => {
   const [sectionIndex, setSectionIndex] = React.useState(0);
-  const [answers, setAnswers] = React.useState({});
+  const [answers, setAnswers] = React.useState<Answers>({});
 
   const sectionData = formData.sections[sectionIndex];
 
-  const handleAnswerChange = (questionID, answer) => {
+  const handleAnswerChange = (
+    questionID: string,
+    answer: string | string[]
+  ) => {
     setAnswers((prev) => ({ ...prev, [questionID]: answer }));
   };
 
@@ -78,12 +86,13 @@ export const Form = () => {
 
       {sectionData.questions.map((question) => (
         <Question
-          key={question.id} // TODO: key 활용
+          key={question.id}
           question={question}
           answer={answers[question.id]}
           onChangeAnswer={(answer) => handleAnswerChange(question.id, answer)}
         />
       ))}
+
       <button onClick={handleClickPreviousButton} disabled={sectionIndex === 0}>
         이전
       </button>

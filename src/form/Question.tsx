@@ -1,6 +1,13 @@
 import React from 'react';
+import { Question as QuestionType } from './form.type';
 
-export function Question({ question, answer = '', onChangeAnswer }) {
+interface QuestionProps {
+  question: QuestionType;
+  answer: string | string[];
+  onChangeAnswer: (answer: string | string[]) => void;
+}
+
+export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
   switch (question.type) {
     case 'text':
       return (
@@ -18,7 +25,7 @@ export function Question({ question, answer = '', onChangeAnswer }) {
       return (
         <div>
           <label>{question.title}</label>
-          {question.options.map((option) => (
+          {question.options?.map((option) => (
             <div key={option}>
               <input
                 type='radio'
@@ -38,15 +45,17 @@ export function Question({ question, answer = '', onChangeAnswer }) {
       return (
         <div>
           <label>{question.title}</label>
-          {question.options.map((option) => (
+          {question.options?.map((option) => (
             <div key={option}>
               <input
                 type='checkbox'
                 id={`${question.id}-${option}`}
                 name={question.id}
                 value={option}
-                checked={answer.includes(option)}
+                checked={answer?.includes(option)}
                 onChange={(e) => {
+                  if (!Array.isArray(answer)) return;
+
                   const newAnswer = [...answer];
                   if (e.target.checked) {
                     newAnswer.push(option);
