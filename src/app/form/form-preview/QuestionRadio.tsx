@@ -3,6 +3,7 @@ import { Question } from '../form.type';
 import * as styles from './style.css';
 
 interface QuestionRadioProps {
+  showError: boolean;
   question: Question;
   answer: string;
   onChangeAnswer: (answer: string) => void;
@@ -10,6 +11,7 @@ interface QuestionRadioProps {
 }
 
 export function QuestionRadio({
+  showError,
   question,
   answer,
   onChangeAnswer,
@@ -33,6 +35,9 @@ export function QuestionRadio({
             <label htmlFor={`${question.id}-${option}`}>{option}</label>
           </div>
         ))}
+        {showError && question.required && !answer && (
+          <div style={{ color: 'red' }}>필수 항목입니다.</div>
+        )}
       </div>
     </div>
   );

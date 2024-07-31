@@ -12,6 +12,8 @@ export const Form = () => {
   const [sectionIndex, setSectionIndex] = React.useState(0);
   const [answers, setAnswers] = React.useState<Answers>({});
 
+  const [showError, setShowError] = React.useState(false);
+
   const sectionData = formData.sections[sectionIndex];
 
   const handleAnswerChange = (
@@ -29,6 +31,22 @@ export const Form = () => {
   };
 
   const handleClickNextButton = () => {
+    const isInvalid = sectionData.questions.some((question) => {
+      if (question.type === 'checkbox') {
+        return (
+          question.required &&
+          (!answers[question.id] || answers[question.id].length === 0)
+        );
+      } else {
+        return question.required && !answers[question.id];
+      }
+    });
+
+    if (isInvalid) {
+      setShowError(true);
+      return;
+    }
+
     if (sectionIndex < formData.sections.length - 1) {
       setSectionIndex(sectionIndex + 1);
     } else {
@@ -61,6 +79,7 @@ export const Form = () => {
           question={question}
           answer={answers[question.id]}
           onChangeAnswer={(answer) => handleAnswerChange(question.id, answer)}
+          showError={showError}
         />
       ))}
 

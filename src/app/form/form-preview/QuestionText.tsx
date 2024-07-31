@@ -3,6 +3,7 @@ import { Question } from '../form.type';
 import * as styles from './style.css';
 
 interface QuestionTextProps {
+  showError: boolean;
   question: Question;
   answer: string;
   onChangeAnswer: (answer: string) => void;
@@ -10,6 +11,7 @@ interface QuestionTextProps {
 }
 
 export function QuestionText({
+  showError,
   question,
   answer,
   onChangeAnswer,
@@ -25,6 +27,9 @@ export function QuestionText({
         required={question.required}
         className={styles.textInput}
       />
+      {showError && question.required && !answer && (
+        <div style={{ color: 'red' }}>필수 항목입니다.</div>
+      )}
     </div>
   );
 }

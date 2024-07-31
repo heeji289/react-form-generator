@@ -3,6 +3,7 @@ import { Question } from '../form.type';
 import * as styles from './style.css';
 
 interface QuestionCheckboxProps {
+  showError: boolean;
   question: Question;
   answer: string[];
   onChangeAnswer: (answer: string[]) => void;
@@ -10,6 +11,7 @@ interface QuestionCheckboxProps {
 }
 
 export function QuestionCheckbox({
+  showError,
   question,
   answer,
   onChangeAnswer,
@@ -43,6 +45,9 @@ export function QuestionCheckbox({
             <label htmlFor={`${question.id}-${option}`}>{option}</label>
           </div>
         ))}
+        {showError && question.required && answer.length === 0 && (
+          <div style={{ color: 'red' }}>필수 항목입니다.</div>
+        )}
       </div>
     </div>
   );

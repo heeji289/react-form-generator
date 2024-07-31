@@ -7,12 +7,18 @@ import { QuestionTextarea } from './QuestionTextArea';
 import * as styles from './style.css';
 
 interface QuestionProps {
+  showError: boolean;
   question: QuestionType;
   answer: string | string[];
   onChangeAnswer: (answer: string | string[]) => void;
 }
 
-export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
+export function Question({
+  showError,
+  question,
+  answer,
+  onChangeAnswer,
+}: QuestionProps) {
   const renderLabel = () => (
     <label className={styles.questionTitle}>
       {question.title}
@@ -24,6 +30,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
     case 'text':
       return (
         <QuestionText
+          showError={showError}
           question={question}
           answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
@@ -33,6 +40,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
     case 'radio':
       return (
         <QuestionRadio
+          showError={showError}
           question={question}
           answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
@@ -42,6 +50,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
     case 'checkbox':
       return (
         <QuestionCheckbox
+          showError={showError}
           question={question}
           answer={(answer ?? []) as string[]}
           onChangeAnswer={onChangeAnswer}
@@ -51,6 +60,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
     case 'textarea':
       return (
         <QuestionTextarea
+          showError={showError}
           question={question}
           answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
