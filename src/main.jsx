@@ -1,6 +1,6 @@
 import App from './App';
 
-import { Form } from './app/form/form-preview/Form';
+import { Form } from './app/form/form-preview/FormPreviewPage';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';

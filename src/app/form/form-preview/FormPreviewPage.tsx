@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Answers } from '../form.type';
 import { Question } from './Question';
 import { formData } from './form.data';
@@ -10,14 +10,14 @@ export const Form = () => {
   const { id: formID } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
-  const [sectionIndex, setSectionIndex] = React.useState(0);
-  const [answers, setAnswers] = React.useState<Answers>({});
+  const [sectionIndex, setSectionIndex] = useState(0);
+  const [answers, setAnswers] = useState<Answers>({});
 
-  const [showError, setShowError] = React.useState(false);
+  const [showError, setShowError] = useState(false);
 
   const sectionData = formData.sections[sectionIndex];
 
-  const handleAnswerChange = (
+  const handleChangeAnswer = (
     questionID: string,
     answer: string | string[]
   ) => {
@@ -55,17 +55,30 @@ export const Form = () => {
     if (sectionIndex < formData.sections.length - 1) {
       setSectionIndex(sectionIndex + 1);
     } else {
-      // TODO: 제출
-      // 저장하고
-      // 페이지 `이동
+      saveForm(formID ?? '', {
+        id: formID ?? '',
+        title: formData.title,
+        answers,
+      });
       navigate(`/form/${formID}/submit`);
     }
   };
 
   const handleClickPreviousButton = () => {
-    if (sectionIndex > 0) {
-      setSectionIndex(sectionIndex - 1);
-    }
+    if (sectionIndex < 1) return;
+
+    setSectionIndex(sectionIndex - 1);
+  };
+
+  const handleClearForm = () => {
+    if (!formID) return;
+
+    setAnswers({});
+    saveForm(formID, {
+      id: formID,
+      title: formData.title,
+      answers: {},
+    });
   };
 
   useEffect(() => {
@@ -80,12 +93,14 @@ export const Form = () => {
       <h1 className={styles.title}>{formData.title}</h1>
       <h2>{sectionData.title}</h2>
 
+      <button onClick={handleClearForm}>양식 지우기</button>
+
       {sectionData.questions.map((question) => (
         <Question
           key={question.id}
           question={question}
           answer={answers[question.id]}
-          onChangeAnswer={(answer) => handleAnswerChange(question.id, answer)}
+          onChangeAnswer={(answer) => handleChangeAnswer(question.id, answer)}
           showError={showError}
         />
       ))}
