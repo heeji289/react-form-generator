@@ -1,13 +1,13 @@
-import React from 'react';
-import { Form as FormType } from '../form.type';
+import React, { useEffect } from 'react';
+import { Answers } from '../form.type';
 import { Question } from './Question';
 import { formData } from './form.data';
-
-type Answers = {
-  [questionID: string]: string | string[];
-};
+import { useParams } from 'react-router-dom';
+import { loadForm, saveForm } from './utils';
 
 export const Form = () => {
+  const { id: formID } = useParams<{ id: string }>();
+
   const [sectionIndex, setSectionIndex] = React.useState(0);
   const [answers, setAnswers] = React.useState<Answers>({});
 
@@ -17,7 +17,14 @@ export const Form = () => {
     questionID: string,
     answer: string | string[]
   ) => {
-    setAnswers((prev) => ({ ...prev, [questionID]: answer }));
+    setAnswers((prev) => {
+      if (!formID) return prev;
+
+      const newAnswers = { ...prev, [questionID]: answer };
+      saveForm(formID, newAnswers);
+
+      return newAnswers;
+    });
   };
 
   const handleClickNextButton = () => {
@@ -25,6 +32,8 @@ export const Form = () => {
       setSectionIndex(sectionIndex + 1);
     } else {
       // TODO: 제출
+      // 저장하고
+      // 페이지 이동
     }
   };
 
@@ -33,6 +42,12 @@ export const Form = () => {
       setSectionIndex(sectionIndex - 1);
     }
   };
+
+  useEffect(() => {
+    if (!formID) return;
+
+    setAnswers(loadForm(formID));
+  }, [formID]);
 
   return (
     <div>

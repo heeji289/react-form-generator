@@ -21,3 +21,7 @@ export type Form = {
   title: string;
   sections: Section[];
 };
+
+export type Answers = {
+  [questionID: string]: string | string[];
+};
