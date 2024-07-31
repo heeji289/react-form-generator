@@ -24,7 +24,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
       return (
         <QuestionText
           question={question}
-          answer={answer as string}
+          answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
           renderLabel={renderLabel}
         />
@@ -33,7 +33,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
       return (
         <QuestionRadio
           question={question}
-          answer={answer as string}
+          answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
           renderLabel={renderLabel}
         />
@@ -51,7 +51,7 @@ export function Question({ question, answer, onChangeAnswer }: QuestionProps) {
       return (
         <QuestionTextarea
           question={question}
-          answer={answer as string}
+          answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
           renderLabel={renderLabel}
         />

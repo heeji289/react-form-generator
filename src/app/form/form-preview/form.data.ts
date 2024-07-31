@@ -36,7 +36,7 @@ export const formData: Form = {
       title: '섹션2',
       questions: [
         {
-          id: 'question3',
+          id: 'question4',
           type: 'textarea',
           title: '자기소개 입력란',
           required: false,
