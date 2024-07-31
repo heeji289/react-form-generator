@@ -1,1 +1,1 @@
-# js-mini-react
+# react-form-generator
