@@ -1,10 +1,10 @@
 import React from 'react';
-import { Question } from '../form.type';
+import { TextQuestion } from '../form.type';
 import * as styles from './style.css';
 
 interface QuestionTextProps {
   showError: boolean;
-  question: Question;
+  question: TextQuestion;
   answer: string;
   onChangeAnswer: (answer: string) => void;
   renderLabel: () => JSX.Element;

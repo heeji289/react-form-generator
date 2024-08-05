@@ -2,13 +2,22 @@ export type Option = string;
 
 export type QuestionType = 'text' | 'radio' | 'checkbox' | 'textarea';
 
-export type Question = {
+type BaseQuestion = {
   id: string;
-  type: QuestionType;
   title: string;
   required: boolean;
-  options?: Option[];
 };
+
+export type TextQuestion = {
+  type: 'text' | 'textarea';
+} & BaseQuestion;
+
+export type ChoiceQuestion = {
+  type: 'radio' | 'checkbox';
+  options: Option[];
+} & BaseQuestion;
+
+export type Question = TextQuestion | ChoiceQuestion;
 
 export type Section = {
   id: string;

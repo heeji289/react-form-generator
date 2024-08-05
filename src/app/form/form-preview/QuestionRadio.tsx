@@ -1,10 +1,10 @@
 import React from 'react';
-import { Question } from '../form.type';
+import { ChoiceQuestion } from '../form.type';
 import * as styles from './style.css';
 
 interface QuestionRadioProps {
   showError: boolean;
-  question: Question;
+  question: ChoiceQuestion;
   answer: string;
   onChangeAnswer: (answer: string) => void;
   renderLabel: () => JSX.Element;
@@ -21,7 +21,7 @@ export function QuestionRadio({
     <div className={styles.questionContainer}>
       <div className={styles.radioContainer}>
         {renderLabel()}
-        {question.options?.map((option) => (
+        {question.options.map((option) => (
           <div key={option} className={styles.radioLabel}>
             <input
               type='radio'
