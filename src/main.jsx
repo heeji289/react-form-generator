@@ -1,6 +1,6 @@
 import App from './App';
 
-import { Form } from './app/form/form-preview/FormPreviewPage';
+import { FormPreviewPage } from './app/form/form-preview/FormPreviewPage';
 import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/form/:id',
-    element: <Form />,
+    element: <FormPreviewPage />,
   },
   {
     path: '/form/:id/submit',
