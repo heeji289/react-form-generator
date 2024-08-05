@@ -4,15 +4,15 @@ import { loadForm } from '../form-preview/utils';
 import { FormResult } from '../form.type';
 
 export default function FormSubmitPage() {
-  const { id } = useParams<{ id: string }>();
+  const { id: formID } = useParams<{ id: string }>();
   const [result, setResult] = React.useState<FormResult | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!formID) return;
 
-    const result = loadForm(id);
+    const result = loadForm(formID);
     setResult(result);
-  }, [id]);
+  }, [formID]);
 
   return (
     <div>
