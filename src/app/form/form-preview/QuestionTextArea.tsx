@@ -1,13 +1,13 @@
 import React from 'react';
 import { TextQuestion } from '../form.type';
 import * as styles from './style.css';
+import { QuestionLabel } from './QuestionLabel';
 
 interface QuestionTextareaProps {
   showError: boolean;
   question: TextQuestion;
   answer: string;
   onChangeAnswer: (answer: string) => void;
-  renderLabel: () => JSX.Element;
 }
 
 export function QuestionTextarea({
@@ -15,11 +15,10 @@ export function QuestionTextarea({
   question,
   answer,
   onChangeAnswer,
-  renderLabel,
 }: QuestionTextareaProps) {
   return (
     <div className={styles.questionContainer}>
-      {renderLabel()}
+      <QuestionLabel question={question} />
       <textarea
         value={answer}
         onChange={(e) => onChangeAnswer(e.target.value)}

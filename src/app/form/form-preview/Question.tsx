@@ -4,7 +4,6 @@ import { QuestionText } from './QuestionText';
 import { QuestionRadio } from './QuestionRadio';
 import { QuestionCheckbox } from './QuestionCheckbox';
 import { QuestionTextarea } from './QuestionTextArea';
-import * as styles from './style.css';
 
 interface QuestionProps {
   showError: boolean;
@@ -19,13 +18,6 @@ export function Question({
   answer,
   onChangeAnswer,
 }: QuestionProps) {
-  const renderLabel = () => (
-    <label className={styles.questionTitle}>
-      {question.title}
-      {question.required && <span style={{ color: 'red' }}> *</span>}
-    </label>
-  );
-
   switch (question.type) {
     case 'text':
       return (
@@ -34,7 +26,6 @@ export function Question({
           question={question}
           answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
-          renderLabel={renderLabel}
         />
       );
     case 'radio':
@@ -44,7 +35,6 @@ export function Question({
           question={question}
           answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
-          renderLabel={renderLabel}
         />
       );
     case 'checkbox':
@@ -54,7 +44,6 @@ export function Question({
           question={question}
           answer={(answer ?? []) as string[]}
           onChangeAnswer={onChangeAnswer}
-          renderLabel={renderLabel}
         />
       );
     case 'textarea':
@@ -64,7 +53,6 @@ export function Question({
           question={question}
           answer={(answer ?? '') as string}
           onChangeAnswer={onChangeAnswer}
-          renderLabel={renderLabel}
         />
       );
     default:

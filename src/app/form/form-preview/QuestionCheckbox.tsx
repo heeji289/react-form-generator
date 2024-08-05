@@ -1,13 +1,13 @@
 import React from 'react';
 import { ChoiceQuestion } from '../form.type';
 import * as styles from './style.css';
+import { QuestionLabel } from './QuestionLabel';
 
 interface QuestionCheckboxProps {
   showError: boolean;
   question: ChoiceQuestion;
   answer: string[];
   onChangeAnswer: (answer: string[]) => void;
-  renderLabel: () => JSX.Element;
 }
 
 export function QuestionCheckbox({
@@ -15,7 +15,6 @@ export function QuestionCheckbox({
   question,
   answer,
   onChangeAnswer,
-  renderLabel,
 }: QuestionCheckboxProps) {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const newAnswer = [...answer];
@@ -31,7 +30,7 @@ export function QuestionCheckbox({
   return (
     <div className={styles.questionContainer}>
       <div className={styles.radioContainer}>
-        {renderLabel()}
+        <QuestionLabel question={question} />
         {question.options.map((option) => (
           <div key={option} className={styles.radioLabel}>
             <input

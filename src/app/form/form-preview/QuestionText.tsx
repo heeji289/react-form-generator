@@ -1,13 +1,13 @@
 import React from 'react';
 import { TextQuestion } from '../form.type';
 import * as styles from './style.css';
+import { QuestionLabel } from './QuestionLabel';
 
 interface QuestionTextProps {
   showError: boolean;
   question: TextQuestion;
   answer: string;
   onChangeAnswer: (answer: string) => void;
-  renderLabel: () => JSX.Element;
 }
 
 export function QuestionText({
@@ -15,11 +15,10 @@ export function QuestionText({
   question,
   answer,
   onChangeAnswer,
-  renderLabel,
 }: QuestionTextProps) {
   return (
     <div className={styles.questionContainer}>
-      {renderLabel()}
+      <QuestionLabel question={question} />
       <input
         type='text'
         value={answer}
