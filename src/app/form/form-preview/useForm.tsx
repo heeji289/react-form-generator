@@ -10,18 +10,15 @@ export function useForm() {
   const [showError, setShowError] = useState(false);
 
   const onChangeAnswer = (questionID: string, answer: string | string[]) => {
-    setAnswers((prev) => {
-      if (!formID) return prev;
+    if (!formID) return;
 
-      const newAnswers = { ...prev, [questionID]: answer };
+    const newAnswers = { ...answers, [questionID]: answer };
 
-      saveForm(formID, {
-        id: formID,
-        title: formData.title,
-        answers: newAnswers,
-      });
-
-      return newAnswers;
+    setAnswers(newAnswers);
+    saveForm(formID, {
+      id: formID,
+      title: formData.title,
+      answers: newAnswers,
     });
   };
 

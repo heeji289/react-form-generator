@@ -35,16 +35,19 @@ export const FormPreviewPage = () => {
       return;
     }
 
-    if (sectionIndex < formData.sections.length - 1) {
+    const isLastSection = sectionIndex === formData.sections.length - 1;
+
+    if (!isLastSection) {
       setSectionIndex(sectionIndex + 1);
-    } else {
-      saveForm(formID ?? '', {
-        id: formID ?? '',
-        title: formData.title,
-        answers,
-      });
-      navigate(`/form/${formID}/submit`);
+      return;
     }
+
+    saveForm(formID ?? '', {
+      id: formID ?? '',
+      title: formData.title,
+      answers,
+    });
+    navigate(`/form/${formID}/submit`);
   };
 
   const handleClickPreviousButton = () => {
