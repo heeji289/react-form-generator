@@ -1,55 +1,50 @@
 import { style, globalStyle } from '@vanilla-extract/css';
+import { vars } from '../../../theme.css';
 
 export const container = style({
-  maxWidth: '640px',
+  maxWidth: vars.sizes.maxWidth,
   margin: '0 auto',
-  padding: '20px',
+  padding: vars.space.large,
 });
 
 export const title = style({
-  fontSize: '2rem',
+  fontSize: vars.fontSizes.large,
   fontWeight: 'bold',
-  marginBottom: '20px',
+  marginBottom: vars.space.large,
 });
 
 export const questionContainer = style({
-  backgroundColor: '#fff',
-  borderRadius: '8px',
-  marginBottom: '12px',
-  padding: '24px',
+  backgroundColor: vars.colors.white,
+  borderRadius: vars.radii.medium,
+  marginBottom: vars.space.medium,
+  padding: vars.space.xlarge,
 });
 
 export const questionTitle = style({
-  fontSize: '1rem',
+  fontSize: vars.fontSizes.medium,
   fontWeight: 'bold',
-  marginBottom: '12px',
+  marginBottom: vars.space.medium,
 });
 
-export const textInput = style({
+const inputStyles = {
   width: '100%',
-  padding: '8px',
-  fontSize: '0.8rem',
-  border: '1px solid #dadce0',
-  borderRadius: '4px',
+  padding: vars.space.small,
+  fontSize: vars.fontSizes.small,
+  border: `1px solid ${vars.colors.border}`,
+  borderRadius: vars.radii.small,
   ':focus': {
     outline: 'none',
-    border: '2px solid #1a73e8',
+    border: `2px solid ${vars.colors.primary}`,
   },
-});
+};
+
+export const textInput = style(inputStyles);
 
 export const textarea = style({
-  width: '100%',
+  ...inputStyles,
   minHeight: '100px',
-  padding: '8px',
-  fontSize: '14px',
-  border: '1px solid #dadce0',
-  borderRadius: '4px',
   resize: 'vertical',
   transition: 'border 0.3s',
-  ':focus': {
-    outline: 'none',
-    border: '2px solid #1a73e8',
-  },
 });
 
 export const radioContainer = style({
@@ -59,36 +54,36 @@ export const radioContainer = style({
 
 export const radioLabel = style({
   display: 'flex',
-  marginBottom: '8px',
+  marginBottom: vars.space.small,
 });
 
 export const navigationContainer = style({
   display: 'flex',
   justifyContent: 'space-between',
-  marginTop: '20px',
+  marginTop: vars.space.large,
 });
 
 export const navigationButton = style({
-  backgroundColor: '#fff',
-  color: '#1a73e8',
-  border: '1px solid #dadce0',
-  padding: '10px 24px',
-  fontSize: '14px',
+  backgroundColor: vars.colors.white,
+  color: vars.colors.primary,
+  border: `1px solid ${vars.colors.border}`,
+  padding: `${vars.space.small} ${vars.space.xlarge}`,
+  fontSize: vars.fontSizes.small,
   fontWeight: 'bold',
-  borderRadius: '4px',
+  borderRadius: vars.radii.small,
   cursor: 'pointer',
   transition: 'background-color 0.3s',
   ':hover': {
     backgroundColor: '#f6f9fe',
   },
   ':disabled': {
-    color: '#bdc1c6',
+    color: vars.colors.text.secondary,
     cursor: 'not-allowed',
   },
 });
 
 globalStyle('body', {
-  backgroundColor: '#f0f0f0',
+  backgroundColor: vars.colors.background,
   margin: 0,
   padding: 0,
 });
