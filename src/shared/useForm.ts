@@ -56,6 +56,12 @@ export function useForm({ initialValues, validate, onSubmit }: FormProps) {
     onSubmit(values);
   };
 
+  const resetForm = () => {
+    setValues(initialValues);
+    setErrors({});
+    setTouched({});
+  };
+
   const getFieldProps = (
     name: string,
     options: { type: string; value: any }
@@ -107,5 +113,6 @@ export function useForm({ initialValues, validate, onSubmit }: FormProps) {
     handleBlur,
     handleSubmit,
     getFieldProps,
+    resetForm,
   };
 }

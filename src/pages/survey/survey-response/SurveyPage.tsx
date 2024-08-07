@@ -33,30 +33,31 @@ export function SurveyPage() {
   );
 
   // 3. 사용자 응답 데이터를 관리하기 위한 폼 훅
-  const { values, errors, touched, getFieldProps, handleSubmit } = useForm({
-    initialValues: { ...initialValues, ...storedValues },
-    validate: (values) => {
-      const errors: Record<string, string> = {};
-      currentSurveySection.questions.forEach((question) => {
-        if (
-          question.required &&
-          (question.type === 'checkbox'
-            ? values[question.id].length === 0
-            : !values[question.id])
-        ) {
-          errors[question.id] = '이 질문은 필수입니다.';
+  const { values, errors, touched, getFieldProps, handleSubmit, resetForm } =
+    useForm({
+      initialValues: { ...initialValues, ...storedValues },
+      validate: (values) => {
+        const errors: Record<string, string> = {};
+        currentSurveySection.questions.forEach((question) => {
+          if (
+            question.required &&
+            (question.type === 'checkbox'
+              ? values[question.id].length === 0
+              : !values[question.id])
+          ) {
+            errors[question.id] = '이 질문은 필수입니다.';
+          }
+        });
+        return errors;
+      },
+      onSubmit: (values) => {
+        if (Object.values(errors).some((error) => error)) {
+          return;
         }
-      });
-      return errors;
-    },
-    onSubmit: (values) => {
-      if (Object.values(errors).some((error) => error)) {
-        return;
-      }
 
-      navigate(`/survey/${data.id}/result`, { state: { values } });
-    },
-  });
+        navigate(`/survey/${data.id}/result`, { state: { values } });
+      },
+    });
 
   const onClickNextButton = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -66,6 +67,11 @@ export function SurveyPage() {
     }
 
     handleNext(e);
+  };
+
+  const onClearForm = () => {
+    sessionStorage.removeItem('surveyResponses');
+    resetForm();
   };
 
   // 응답 변경 시 세션 스토리지에 저장
@@ -91,6 +97,7 @@ export function SurveyPage() {
           isLastSection={isLastSection}
           handlePrev={handlePrev}
           handleNext={onClickNextButton}
+          handleClearForm={onClearForm}
         />
       </form>
     </div>

@@ -5,6 +5,7 @@ interface SurveyFooterProps {
   isLastSection: boolean;
   handlePrev: () => void;
   handleNext: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  handleClearForm: () => void;
 }
 
 export function SurveyFooter({
@@ -12,6 +13,7 @@ export function SurveyFooter({
   isLastSection,
   handlePrev,
   handleNext,
+  handleClearForm,
 }: SurveyFooterProps) {
   return (
     <div className={styles.navigationContainer}>
@@ -38,6 +40,10 @@ export function SurveyFooter({
           다음
         </button>
       )}
+
+      <button type='button' onClick={handleClearForm}>
+        양식 지우기
+      </button>
     </div>
   );
 }
