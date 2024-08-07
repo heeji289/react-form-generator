@@ -1,8 +1,8 @@
 import React from 'react';
 import { useSurveyData } from '../../../app/survey/hooks/useSurveyData';
-import { useForm } from '../../../shared/useForm';
+import { useForm } from '../../../shared/hooks/useForm';
 import { SurveyQuestion } from '../../../app/survey/types/survey-question';
-import { useNavigateItems } from '../../../shared/useNavigateItems';
+import { useNavigateItems } from '../../../shared/hooks/useNavigateItems';
 import { QuestionList } from './QuestionList';
 import { SurveyFooter } from './SurveyFooter';
 import { useNavigate } from 'react-router-dom';
