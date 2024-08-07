@@ -57,6 +57,21 @@ export const radioLabel = style({
   marginBottom: vars.space.small,
 });
 
+export const requiredStar = style({
+  color: vars.colors.error,
+  marginLeft: vars.space.small,
+});
+
+export const errorText = style({
+  color: vars.colors.error,
+  fontSize: '14px',
+  marginTop: vars.space.small,
+});
+
+export const invalidInput = style({
+  borderColor: vars.colors.error,
+});
+
 export const navigationContainer = style({
   display: 'flex',
   justifyContent: 'space-between',

@@ -6,6 +6,7 @@ export const vars = createGlobalTheme(':root', {
     background: '#f0f0f0',
     white: '#fff',
     border: '#dadce0',
+    error: '#d93025',
     text: {
       primary: '#000',
       secondary: '#bdc1c6',

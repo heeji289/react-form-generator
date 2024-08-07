@@ -2,21 +2,30 @@ import React from 'react';
 import { SurveyQuestion } from '../../../app/survey/types/survey-question';
 import * as styles from './styles.css';
 
+interface QuestionListProps {
+  questions: SurveyQuestion[];
+  getFieldProps: any;
+  values: Record<string, string | string[]>;
+  touched: Record<string, boolean>;
+  errors: Record<string, string>;
+}
+
 export function QuestionList({
   questions,
   getFieldProps,
   values,
-}: {
-  questions: SurveyQuestion[];
-  getFieldProps: any;
-  values: Record<string, string | string[]>;
-}) {
+  touched,
+  errors,
+}: QuestionListProps) {
   return (
     <>
       {questions.map((question) => (
         <div key={question.id} className={styles.questionContainer}>
           <label htmlFor={question.id} className={styles.questionTitle}>
             {question.title}
+            {question.required && (
+              <span className={styles.requiredStar}>*</span>
+            )}
           </label>
           {question.type === 'text' && (
             <input
@@ -63,6 +72,10 @@ export function QuestionList({
                 </label>
               ))}
             </div>
+          )}
+
+          {touched[question.id] && errors[question.id] && (
+            <p className={styles.errorText}>{errors[question.id]}</p>
           )}
         </div>
       ))}
