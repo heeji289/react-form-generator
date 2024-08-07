@@ -6,6 +6,7 @@ import { useNavigateItems } from '../../../shared/useNavigateItems';
 import { QuestionList } from './QuestionList';
 import { SurveyFooter } from './SurveyFooter';
 import { useNavigate } from 'react-router-dom';
+import * as styles from './styles.css';
 
 export function SurveyPage() {
   const navigate = useNavigate();
@@ -33,11 +34,9 @@ export function SurveyPage() {
   });
 
   return (
-    <div>
-      <div>
-        <h1>{data.title}</h1>
-        <h2>{currentSurveySection.title}</h2>
-      </div>
+    <div className={styles.container}>
+      <h1 className={styles.title}>{data.title}</h1>
+      <h2>{currentSurveySection.title}</h2>
 
       <form onSubmit={handleSubmit}>
         <QuestionList

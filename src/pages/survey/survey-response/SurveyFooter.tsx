@@ -1,3 +1,5 @@
+import * as styles from './styles.css';
+
 interface SurveyFooterProps {
   isFirstSection: boolean;
   isLastSection: boolean;
@@ -12,17 +14,27 @@ export function SurveyFooter({
   handleNext,
 }: SurveyFooterProps) {
   return (
-    <div>
+    <div className={styles.navigationContainer}>
       {!isFirstSection && (
-        <button type='button' onClick={handlePrev}>
+        <button
+          type='button'
+          onClick={handlePrev}
+          className={styles.navigationButton}
+        >
           이전
         </button>
       )}
 
       {isLastSection ? (
-        <button type='submit'>제출</button>
+        <button type='submit' className={styles.navigationButton}>
+          제출
+        </button>
       ) : (
-        <button type='button' onClick={handleNext}>
+        <button
+          type='button'
+          onClick={handleNext}
+          className={styles.navigationButton}
+        >
           다음
         </button>
       )}

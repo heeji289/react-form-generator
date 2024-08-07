@@ -1,5 +1,6 @@
 import React from 'react';
 import { SurveyQuestion } from '../../../app/survey/types/survey-question';
+import * as styles from './styles.css';
 
 export function QuestionList({
   questions,
@@ -13,18 +14,26 @@ export function QuestionList({
   return (
     <>
       {questions.map((question) => (
-        <div key={question.id}>
-          <label htmlFor={question.id}>{question.title}</label>
+        <div key={question.id} className={styles.questionContainer}>
+          <label htmlFor={question.id} className={styles.questionTitle}>
+            {question.title}
+          </label>
           {question.type === 'text' && (
-            <input {...getFieldProps(question.id, { type: 'text' })} />
+            <input
+              {...getFieldProps(question.id, { type: 'text' })}
+              className={styles.textInput}
+            />
           )}
           {question.type === 'textarea' && (
-            <textarea {...getFieldProps(question.id, { type: 'textarea' })} />
+            <textarea
+              {...getFieldProps(question.id, { type: 'textarea' })}
+              className={styles.textarea}
+            />
           )}
           {question.type === 'radio' && question.options && (
-            <div>
+            <div className={styles.radioContainer}>
               {question.options.map((option) => (
-                <label key={option}>
+                <label key={option} className={styles.radioLabel}>
                   <input
                     {...getFieldProps(question.id, {
                       type: 'radio',
