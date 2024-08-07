@@ -7,12 +7,23 @@ import { QuestionList } from './QuestionList';
 import { SurveyFooter } from './SurveyFooter';
 import { useNavigate } from 'react-router-dom';
 import * as styles from './styles.css';
+import {
+  getSessionItem,
+  removeSessionItem,
+} from '../../../shared/utils/session-storage';
 
 export function SurveyPage() {
   const navigate = useNavigate();
 
   // 1. 서버로부터 설문 데이터를 가져온다.
   const { data } = useSurveyData();
+
+  const [sessionValues, _] = React.useState(() => {
+    const initialValue = getInitialValues(
+      data.sections.flatMap((s) => s.questions)
+    );
+    return getSessionItem('surveyResponses', initialValue);
+  });
 
   // 2. 섹션 간 이동을 위한 훅
   const {
@@ -24,18 +35,10 @@ export function SurveyPage() {
   } = useNavigateItems({ length: data.sections.length });
   const currentSurveySection = data.sections[currentSectionIndex];
 
-  const initialValues = getInitialValues(
-    data.sections.flatMap((s) => s.questions)
-  );
-  // 세션 스토리지에서 저장된 응답 불러오기
-  const storedValues = JSON.parse(
-    sessionStorage.getItem('surveyResponses') || '{}'
-  );
-
   // 3. 사용자 응답 데이터를 관리하기 위한 폼 훅
   const { values, errors, touched, getFieldProps, handleSubmit, resetForm } =
     useForm({
-      initialValues: { ...initialValues, ...storedValues },
+      initialValues: sessionValues,
       validate: (values) => {
         const errors: Record<string, string> = {};
         currentSurveySection.questions.forEach((question) => {
@@ -70,8 +73,8 @@ export function SurveyPage() {
   };
 
   const onClearForm = () => {
-    sessionStorage.removeItem('surveyResponses');
     resetForm();
+    removeSessionItem('surveyResponses');
   };
 
   // 응답 변경 시 세션 스토리지에 저장
