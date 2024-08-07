@@ -5,8 +5,11 @@ import { SurveyQuestion } from '../../../app/survey/types/survey-question';
 import { useNavigateItems } from '../../../shared/useNavigateItems';
 import { QuestionList } from './QuestionList';
 import { SurveyFooter } from './SurveyFooter';
+import { useNavigate } from 'react-router-dom';
 
 export function SurveyPage() {
+  const navigate = useNavigate();
+
   // 1. 서버로부터 설문 데이터를 가져온다.
   const { data } = useSurveyData();
 
@@ -24,7 +27,9 @@ export function SurveyPage() {
   const { values, getFieldProps, handleSubmit } = useForm({
     initialValues: getInitialValues(data.sections.flatMap((s) => s.questions)),
     validate: () => ({}),
-    onSubmit: (values) => console.log('제출!', values),
+    onSubmit: (values) => {
+      navigate(`/survey/${data.id}/result`, { state: { values } });
+    },
   });
 
   return (

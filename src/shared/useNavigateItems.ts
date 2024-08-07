@@ -15,7 +15,8 @@ export function useNavigateItems({
     setCurrentIndex((prev) => (prev > 0 ? prev - 1 : prev));
   };
 
-  const handleNext = () => {
+  const handleNext = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
     setCurrentIndex((prev) => (prev < length - 1 ? prev + 1 : prev));
   };
 

@@ -2,7 +2,7 @@ interface SurveyFooterProps {
   isFirstSection: boolean;
   isLastSection: boolean;
   handlePrev: () => void;
-  handleNext: () => void;
+  handleNext: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export function SurveyFooter({
