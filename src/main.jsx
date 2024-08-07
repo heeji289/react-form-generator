@@ -5,6 +5,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import FormSubmitPage from './app/form/form-submit/FormSubmitPage';
+import { SurveyPage } from './pages/survey/survey-response/SurveyPage';
+import { SurveyResultPage } from './pages/survey/survey-result/SurveyResultPage';
 
 const router = createBrowserRouter([
   {
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
   {
     path: '/form/:id/submit',
     element: <FormSubmitPage />,
+  },
+  {
+    path: '/survey/:id',
+    element: <SurveyPage />,
+  },
+  {
+    path: '/survey/:id/result',
+    element: <SurveyResultPage />,
   },
 ]);
 
