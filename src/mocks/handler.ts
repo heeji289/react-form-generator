@@ -31,18 +31,6 @@ const data: Survey = {
         },
       ],
     },
-    {
-      id: 'section2',
-      title: '섹션2',
-      questions: [
-        {
-          id: 'question4',
-          type: 'textarea',
-          title: '자기소개 입력란',
-          required: false,
-        },
-      ],
-    },
   ],
 };
 
@@ -76,23 +64,22 @@ const data2: Survey = {
         },
       ],
     },
-    {
-      id: 'section2',
-      title: '섹션2',
-      questions: [
-        {
-          id: 'question4',
-          type: 'textarea',
-          title: '자기소개 입력란',
-          required: false,
-        },
-      ],
-    },
   ],
 };
 
 export const handlers = [
   http.get('/surveys', () => {
     return HttpResponse.json([data, data2]);
+  }),
+
+  http.get('/surveys/:id', (req, res, ctx) => {
+    const { id } = req.params;
+    if (id === 'survey1') {
+      return HttpResponse.json(data);
+    }
+    if (id === 'survey2') {
+      return HttpResponse.json(data2);
+    }
+    return res(ctx.status(404));
   }),
 ];
